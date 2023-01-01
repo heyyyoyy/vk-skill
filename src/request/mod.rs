@@ -1,26 +1,26 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 
-#[derive(Debug, Deserialize)]
+#[derive(Default, Debug, Deserialize, Serialize, Clone)]
 pub struct Application {
     application_id: String,
     // TODO: create enum types
     application_type: String
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Default, Debug, Deserialize, Serialize, Clone)]
 pub struct User {
     user_id: String
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Default, Debug, Deserialize)]
 pub struct Meta {
     locale: String,
     timezone: String,
     // interfaces: String
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Default, Debug, Deserialize, Serialize, Clone)]
 pub struct Session {
     session_id: String,
     skill_id: String,
@@ -31,7 +31,7 @@ pub struct Session {
     // auth_token: String
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Default, Debug, Deserialize)]
 pub struct Request {
     command: String,
     original_utterance: String,
@@ -42,10 +42,20 @@ pub struct Request {
     // nlu: Nlu
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Default, Debug, Deserialize)]
 pub struct VKRequest {
     meta: Meta,
     request: Request,
     session: Session,
     version: String
+}
+
+impl VKRequest {
+    pub(crate) fn get_session(&self) -> (String, String, i64) {
+        (self.session.session_id.clone(), self.session.application.application_id.clone(), self.session.message_id)
+    }
+
+    pub(crate) fn get_version(&self) -> String {
+        self.version.clone()
+    }
 }

@@ -6,10 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-actix-http = "3.2.2"
-actix-service = "2.0.2"
-actix-web = "4"
-env_logger = "0.10.0"
-log = "0.4.17"
+axum = "0.6.1"
 serde = { version = "1.0.152", features = ["derive"] }
-serde_json = "1.0.91"
+tokio = { version = "1.23", features = ["full"] }
+tower-http = { version = "0.3.5", features = ["trace", "cors"] }
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.16", features = ["env-filter"] }
